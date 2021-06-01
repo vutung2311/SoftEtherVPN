@@ -1,12 +1,16 @@
 [submodule "src/Mayaqua/3rdparty/cpu_features"]
 	path = src/Mayaqua/3rdparty/cpu_features
 	url = https://github.com/google/cpu_features.git
+	ignore = dirty
 [submodule "3rdparty/tinydir"]
 	path = 3rdparty/tinydir
 	url = https://github.com/cxong/tinydir.git
+	ignore = dirty
 [submodule "3rdparty/BLAKE2"]
 	path = 3rdparty/BLAKE2
 	url = https://github.com/BLAKE2/BLAKE2.git
+	ignore = dirty
 [submodule "src/libhamcore"]
 	path = src/libhamcore
 	url = https://github.com/SoftEtherVPN/libhamcore.git
+	ignore = dirty
