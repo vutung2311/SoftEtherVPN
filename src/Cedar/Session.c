@@ -2252,7 +2252,7 @@ SESSION *NewServerSessionEx(CEDAR *cedar, CONNECTION *c, HUB *h, char *username,
 
 			GetMachineName(machine, sizeof(machine));
 
-			Format(tmp, sizeof(tmp), "%s@%s@%u", machine, h->Name, s->UniqueId);
+			Format(tmp, sizeof(tmp), "%s@%s", username, machine);
 
 			StrUpper(tmp);
 			Trim(tmp);
