@@ -25,6 +25,11 @@
 #include <timeapi.h>
 #include <winioctl.h>
 
+#ifndef WIN32_NO_DEBUG_HELP_DLL
+#include <DbgHelp.h>
+#include <Tracking.h>
+#endif
+
 static HANDLE heap_handle = NULL;
 static HANDLE hstdout = INVALID_HANDLE_VALUE;
 static HANDLE hstdin = INVALID_HANDLE_VALUE;
