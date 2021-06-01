@@ -23,6 +23,10 @@ target_link_libraries(cedar PUBLIC mayaqua)
 
 cmake_host_system_information(RESULT HAS_SSE2 QUERY HAS_SSE2)
 
+if(HAS_SSE2)
+  add_definitions(-D__SSE2__)
+endif()
+
 set(BLAKE2_SRC_PATH $<IF:$<BOOL:${HAS_SSE2}>,${TOP_DIRECTORY}/3rdparty/BLAKE2/sse,${TOP_DIRECTORY}/3rdparty/BLAKE2/ref>)
 set(BLAKE2_SRC $<IF:$<BOOL:${HAS_SSE2}>,${BLAKE2_SRC_PATH}/blake2s.c,${BLAKE2_SRC_PATH}/blake2s-ref.c>)
 
@@ -58,7 +62,7 @@ if(WIN32)
   )
 
   target_include_directories(cedar PRIVATE winpcap)
-  target_link_libraries(cedar PRIVATE comctl32.lib urlmon.lib)
+  target_link_libraries(cedar PRIVATE comctl32.lib urlmon.lib wsock32.lib ws2_32.lib)
 endif()
 
 if(UNIX)
