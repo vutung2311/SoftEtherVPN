@@ -1818,6 +1818,7 @@ bool CfgGetIp(FOLDER *f, char *name, struct IP *ip)
 	}
 
 	Zero(ip, sizeof(IP));
+	ZeroIP4(ip);
 
 	if (CfgGetStr(f, name, tmp, sizeof(tmp)) == false)
 	{
