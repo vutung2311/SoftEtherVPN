@@ -62,7 +62,7 @@ if(WIN32)
   )
 
   target_include_directories(cedar PRIVATE winpcap)
-  target_link_libraries(cedar PRIVATE comctl32.lib urlmon.lib wsock32.lib ws2_32.lib)
+  target_link_libraries(cedar PRIVATE comctl32.lib crypt32.lib urlmon.lib wsock32.lib ws2_32.lib)
 endif()
 
 if(UNIX)
