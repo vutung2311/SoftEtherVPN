@@ -43,6 +43,14 @@ if(UNIX)
   endmacro(install_unit_file)
 endif()
 
+if(MSVC)
+    add_compile_options(
+        $<$<CONFIG:>:/MT>
+        $<$<CONFIG:Debug>:/MTd>
+        $<$<CONFIG:Release>:/MT>
+    )
+endif()
+
 if(BUILD_TYPE STREQUAL "Debug")
   add_definitions(-D_DEBUG -DDEBUG)
 else()
