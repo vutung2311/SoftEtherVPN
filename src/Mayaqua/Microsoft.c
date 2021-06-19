@@ -5010,7 +5010,7 @@ bool MsSetServiceDescription(char *name, wchar_t *description)
 			{
 				Zero(&d, sizeof(d));
 				d.lpDescription = description;
-				ChangeServiceConfig2(service, SERVICE_CONFIG_DESCRIPTION, &d);
+				ChangeServiceConfig2W(service, SERVICE_CONFIG_DESCRIPTION, &d);
 			}
 		}
 
@@ -5062,7 +5062,7 @@ bool MsUpdateServiceConfig(char *name)
 			action.cActions = 3;
 			action.lpsaActions = e;
 			action.dwResetPeriod = 1 * 60 * 60 * 24;
-			ChangeServiceConfig2(service, SERVICE_CONFIG_FAILURE_ACTIONS, &action);
+			ChangeServiceConfig2W(service, SERVICE_CONFIG_FAILURE_ACTIONS, &action);
 
 			MsRegWriteInt(REG_LOCAL_MACHINE, "Software\\" GC_REG_COMPANY_NAME "\\Update Service Config", name, 1);
 		}
@@ -5082,7 +5082,7 @@ bool MsUpdateServiceConfig(char *name)
 			{
 				Zero(&d, sizeof(d));
 				d.lpDescription = description;
-				ChangeServiceConfig2(service, SERVICE_CONFIG_DESCRIPTION, &d);
+				ChangeServiceConfig2W(service, SERVICE_CONFIG_DESCRIPTION, &d);
 			}
 		}
 
@@ -5195,8 +5195,8 @@ bool MsInstallServiceExW(char *name, wchar_t *title, wchar_t *description, wchar
 			SERVICE_FAILURE_ACTIONS action;
 			SC_ACTION *e;
 			Zero(&d, sizeof(d));
-			d.lpDescription = description;
-			ChangeServiceConfig2(service, SERVICE_CONFIG_DESCRIPTION, &d);
+			d.lpDescription = CopyUniStr(description);
+			ChangeServiceConfig2W(service, SERVICE_CONFIG_DESCRIPTION, &d);
 			Zero(&action, sizeof(action));
 			e = ZeroMalloc(sizeof(SC_ACTION) * 3);
 			e[0].Delay = 10000; e[0].Type = SC_ACTION_RESTART;
@@ -5205,7 +5205,7 @@ bool MsInstallServiceExW(char *name, wchar_t *title, wchar_t *description, wchar
 			action.cActions = 3;
 			action.lpsaActions = e;
 			action.dwResetPeriod = 1 * 60 * 60 * 24;
-			ChangeServiceConfig2(service, SERVICE_CONFIG_FAILURE_ACTIONS, &action);
+			ChangeServiceConfig2W(service, SERVICE_CONFIG_FAILURE_ACTIONS, &action);
 
 			Free(e);
 		}
@@ -10248,6 +10248,8 @@ void MsInit()
 	if (IsNt())
 	{
 		wchar_t tmp_w[MAX_PATH];
+
+		ms->IsNt = true;
 
 		GetModuleFileNameW(NULL, tmp_w, sizeof(tmp_w));
 		ms->ExeFileNameW = CopyUniStr(tmp_w);
